@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 // 認証不要
@@ -30,6 +31,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // コメント
     Route::post('/posts/{post}/comments', [CommentController::class, 'store']);
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
+
+    // ユーザー
+    Route::get('/users/{user}', [UserController::class, 'show']);
+    Route::get('/users/{user}/posts', [UserController::class, 'posts']);
 
     // フォロー
     Route::post('/users/{user}/follow', [FollowController::class, 'toggle']);

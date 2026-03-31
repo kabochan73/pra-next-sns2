@@ -2,6 +2,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import Link from 'next/link'
 import { Heart, MessageCircle, BookOpen, Trash2 } from 'lucide-react'
 import apiClient from '@/lib/axios'
 import { useAuthStore } from '@/store/authStore'
@@ -65,12 +66,12 @@ export default function PostCard({ post }: { post: Post }) {
     <div className="bg-white rounded-xl border p-4 space-y-3">
       {/* ユーザー情報 */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <Link href={`/users/${post.user.id}`} className="flex items-center gap-2 hover:opacity-75 transition-opacity">
           <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">
             {post.user.name[0]}
           </div>
           <span className="font-medium text-sm">{post.user.name}</span>
-        </div>
+        </Link>
         {user?.id === post.user.id && (
           <Button
             variant="ghost"

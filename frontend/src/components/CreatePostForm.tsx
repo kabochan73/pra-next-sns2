@@ -19,7 +19,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-export default function CreatePostForm() {
+export default function CreatePostForm({ onSuccess }: { onSuccess?: () => void } = {}) {
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
 
@@ -31,6 +31,7 @@ export default function CreatePostForm() {
     mutationFn: (data: FormData) => apiClient.post('/posts', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['feed'] })
+      onSuccess?.()
       reset()
       setOpen(false)
     },
